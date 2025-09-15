@@ -68,4 +68,30 @@ const deleteBarbie = (req, res) => {
   });
 };
 
+const updateBarbie = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const {nome, profissao, anoLancamento} = req.body;
+
+  const idParaEditar = id;
+
+  if(isNaN(idParaEditar)){
+    return res.status(400).json({
+      sucess: false,
+      message: "O id deve ser um número válido!!!"
+    })
+  }
+  const barbieExiste = barbies.find(barbie => barbie.id === idParaEditar);
+
+  if (!barbieExiste) {
+    return res.status(404).json({
+      sucess: false,
+      message: `Barbie com Id: ${id} não existe.`
+    })
+  }
+
+
+  
+}
+
 export { getAllBarbies, getBarbieById, createBarbie, deleteBarbie };
