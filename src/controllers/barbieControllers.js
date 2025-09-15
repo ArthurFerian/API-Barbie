@@ -90,8 +90,24 @@ const updateBarbie = (req, res) => {
     })
   }
 
+  const barbiesAtualizadas = barbies.map(barbie => barbie.id === idParaEditar ? {
+    ...barbie,
+    ...(nome && { nome }),
+    ...(profissao && {  profissao }),
+    ...(anoLancamento && {  anoLancamento: parseInt(anoLancamento)})
+  } : barbie)
 
-  
+  barbies.splice(0, barbies.length, ...
+    barbiesAtualizadas);
+
+    const barbieNova = barbies.find(barbie => barbie.id === idParaEditar);
+
+    res.status(200).json({
+      sucess: true,
+      message: `Dados da Barbie ID ${idParaEditar} atualizados com sucesso!`,
+      barbie: barbieNova
+    })
+
 }
 
-export { getAllBarbies, getBarbieById, createBarbie, deleteBarbie };
+export { getAllBarbies, getBarbieById, createBarbie, deleteBarbie, updateBarbie};
